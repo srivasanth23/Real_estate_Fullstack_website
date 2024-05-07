@@ -1,7 +1,8 @@
-const express = require("express");
-const dotenv = require("dotenv");
-const cookieParser = require("cookie-parser");
-const cors = require("cors");
+import express from 'express';
+import dotenv from 'dotenv';
+import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import { userRoutes } from './routes/userRoutes.js';
 
 dotenv.config();
 const app = express();
@@ -15,3 +16,5 @@ app.use(cors());
 app.listen(PORT, () => {
   console.log(`Server running on ${PORT}`);
 });
+
+app.use("/api/user", userRoutes);
