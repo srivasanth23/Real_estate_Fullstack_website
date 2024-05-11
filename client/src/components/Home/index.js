@@ -2,6 +2,7 @@ import React from "react";
 import CountUp from "react-countup";
 import "./index.css";
 import { HiLocationMarker } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 const Home = () => {
   return (
@@ -11,11 +12,15 @@ const Home = () => {
         <div className="flexColStart home-left">
           <div className="home-title">
             <div className="orange-circle" />
-            <h1>
+            <motion.h1
+              initial={{ y: "2rem", opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ duration: 2, type: "spring" }}
+            >
               Find <br />
               Your Next <br />
               Home
-            </h1>
+            </motion.h1>
           </div>
 
           <div className="flexColStart secondaryText home-des">
@@ -58,9 +63,14 @@ const Home = () => {
 
         {/* Right Section */}
         <div className="flexCenter home-right">
-          <div className="image-container">
-            <img src="./hero-image.png" alt="houses" />
-          </div>
+          <motion.div
+            initial={{ x: "7rem", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ duration: 2, type: "spring" }}
+            className="image-container"
+          >
+              <img src="./hero-image.png" alt="houses" />
+          </motion.div>
         </div>
       </div>
     </section>

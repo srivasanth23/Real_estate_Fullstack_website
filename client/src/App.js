@@ -5,6 +5,9 @@ import Header from "./components/Header";
 import Home from "./components/Home";
 import ResidenciesCarousal from "./components/ResidenciesCarousal";
 import Value from "./components/Value";
+import GetStarted from "./components/GetStarted";
+import Footer from "./components/Footer";
+import ScrollBar from "./components/ScrollBar";
 
 function App() {
   return (
@@ -16,7 +19,10 @@ function App() {
       <Companies />
       <ResidenciesCarousal />
       <Value />
-      <ContactUs/>
+      <ContactUs />
+      <GetStarted />
+      <Footer />
+      <ScrollBar />
     </div>
   );
 }

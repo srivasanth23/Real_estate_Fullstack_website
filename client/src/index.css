@@ -121,6 +121,10 @@ a {
   .orangeText {
     font-size: 1.2rem;
   }
+  .innerWidth {
+    max-width: 90%;
+    margin: auto;
+  }
 }
 
 .button {

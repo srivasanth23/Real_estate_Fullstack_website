@@ -1,11 +1,16 @@
-.v-container .v-image {
+.v-container .image-container {
     border: 8px solid rgb(232 232 232 / 93%);
+  }
+
+.v-container > div {
+    flex: 1;
 }
 
-.v-container>div{
-    flex:1;
+.v-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
-
 
 .v-right{
     gap: 0.5rem;
@@ -57,6 +62,23 @@
   
 @media (max-width: 768px) {
     .accordionButton .primaryText{
-          font-size: .8rem;
+          font-size: 0.7rem;
+    }
+
+    .v-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .v-right{
+        margin-top: 1.5rem;
+    }
+
+    
+    .accordionButton {
+        padding: 1rem;
+        width: 270px;
+        justify-content: space-around;
     }
 }
