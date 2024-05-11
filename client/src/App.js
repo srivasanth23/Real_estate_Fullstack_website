@@ -1,8 +1,10 @@
 import "./App.css";
 import Companies from "./components/Companies";
+import ContactUs from "./components/ContactUs";
 import Header from "./components/Header";
 import Home from "./components/Home";
 import ResidenciesCarousal from "./components/ResidenciesCarousal";
+import Value from "./components/Value";
 
 function App() {
   return (
@@ -11,8 +13,10 @@ function App() {
         <Header />
         <Home />
       </div>
-      <Companies/>
-      <ResidenciesCarousal/>
+      <Companies />
+      <ResidenciesCarousal />
+      <Value />
+      <ContactUs/>
     </div>
   );
 }

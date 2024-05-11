@@ -7,6 +7,7 @@
     margin-bottom: 2rem;
 }
 
+
 .image-carousal{
     border: none;
     border-radius: 10px;
@@ -24,7 +25,7 @@
     height: 300px;
 }
 
-.rc-card>:nth-child(2){
+.r-price{
     font-size: 1.2rem;
     font-weight: 600;
 }
@@ -68,4 +69,27 @@
     border-radius: 5px;
     background-color: black;
     cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+    .image-carousal{
+        width: 200px
+    }
+
+    .rc-card{
+        width: 220px;
+    }
+
+    .r-price{
+        font-size: 1.0rem;
+    }
+
+    .rc-card>:nth-child(3){
+        font-size: 1.2rem;
+    }
+
+    .rc-card>:nth-child(4){
+        font-size:0.7rem ;
+        width: 100%;
+    }
 }
