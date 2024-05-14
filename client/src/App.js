@@ -7,23 +7,39 @@ import ResidenciesCarousal from "./components/ResidenciesCarousal";
 import Value from "./components/Value";
 import GetStarted from "./components/GetStarted";
 import Footer from "./components/Footer";
-import ScrollBar from "./components/ScrollBar";
+import { motion, useScroll } from "framer-motion";
 
 function App() {
+  const { scrollYProgress } = useScroll();
   return (
-    <div className="App">
-      <div>
-        <Header />
-        <Home />
+    <>
+      <motion.div
+        style={{
+          scaleX: scrollYProgress,
+          position: "fixed",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: 10,
+          transformOrigin: "0%",
+          background: "var(--blue)",
+          zIndex: 10,
+        }}
+      ></motion.div>
+
+      <div className="App">
+        <div>
+          <Header />
+          <Home />
+        </div>
+        <Companies />
+        <ResidenciesCarousal />
+        <Value />
+        <ContactUs />
+        <GetStarted />
+        <Footer />
       </div>
-      <Companies />
-      <ResidenciesCarousal />
-      <Value />
-      <ContactUs />
-      <GetStarted />
-      <Footer />
-      <ScrollBar />
-    </div>
+    </>
   );
 }
 

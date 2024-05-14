@@ -5,6 +5,7 @@ import data from "../../utils/slider.json";
 import { sliderSettings } from "../../utils/common";
 
 const ResidenciesCarousal = () => {
+  
   return (
     <section className="r-wrapper">
       <div className="paddings innerWidth residencies-carousal">
