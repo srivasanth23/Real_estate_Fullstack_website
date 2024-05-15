@@ -1,45 +1,20 @@
+import { Suspense } from "react";
 import "./App.css";
-import Companies from "./components/Companies";
-import ContactUs from "./components/ContactUs";
-import Header from "./components/Header";
-import Home from "./components/Home";
-import ResidenciesCarousal from "./components/ResidenciesCarousal";
-import Value from "./components/Value";
-import GetStarted from "./components/GetStarted";
-import Footer from "./components/Footer";
-import { motion, useScroll } from "framer-motion";
+import Website from "./pages/Website";
+import Layouts from "./components/Layouts";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
-  const { scrollYProgress } = useScroll();
   return (
-    <>
-      <motion.div
-        style={{
-          scaleX: scrollYProgress,
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 10,
-          transformOrigin: "0%",
-          background: "var(--blue)",
-          zIndex: 10,
-        }}
-      ></motion.div>
-
-      <div className="App">
-        <div>
-          <Header />
-          <Home />
-        </div>
-        <Companies />
-        <ResidenciesCarousal />
-        <Value />
-        <ContactUs />
-        <GetStarted />
-        <Footer />
-      </div>
-    </>
+    <BrowserRouter>
+      <Suspense fallback={<div> Loading ... </div>}>
+        <Routes>
+          <Route element={<Layouts />}>
+            <Route path="/" element={<Website />} />
+          </Route>
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 
