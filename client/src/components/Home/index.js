@@ -1,8 +1,8 @@
 import React from "react";
 import CountUp from "react-countup";
 import "./index.css";
-import { HiLocationMarker } from "react-icons/hi";
 import { motion } from "framer-motion";
+import SearchBar from "../SearchBar";
 
 const Home = () => {
   return (
@@ -28,11 +28,7 @@ const Home = () => {
             <span>Forget all difficulties in finding a residence for you</span>
           </div>
 
-          <div className="flexCenter searchElement">
-            <HiLocationMarker color="var(--blue)" size={25} />
-            <input type="text" />
-            <button className="button">Search</button>
-          </div>
+          <SearchBar/>
 
           <div className="flexCenter stats">
             <div className="flexColCenter stat">

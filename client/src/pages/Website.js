@@ -24,7 +24,6 @@ const Website = () => {
               zIndex: 10,
             }}
           ></motion.div>
-    
           <div className="App">
             <div>
               <Home />
