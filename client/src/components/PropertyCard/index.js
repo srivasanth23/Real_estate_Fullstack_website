@@ -9,8 +9,8 @@ const PropertyCard = ({ item }) => {
       <span className="secondaryText r-price">
         <span style={{ color: "orange" }}>$</span> {item.price}
       </span>
-      <span className="primaryText">{item.name}</span>
-      <span className="secondaryText">{item.detail}</span>
+      <span className="primaryText">{item.title}</span>
+      <span className="secondaryText">{item.description}</span>
     </div>
   );
 };
