@@ -10,7 +10,7 @@ const Header = () => {
     <section className="h-wrapper">
       <div className="flexCenter paddings innerWidth h-container">
         <Link to="/">
-          <img src="./logo.png" alt="logo" className="h-image" width={100} />
+          <img src="https://res.cloudinary.com/dlxjzmiig/image/upload/v1716013811/logo_jrzim0.png" alt="logo" className="h-image" width={100} />
         </Link>
         <input type="checkbox" id="sidebar-check" />
         <label
