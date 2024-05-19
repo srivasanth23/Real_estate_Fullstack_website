@@ -1,11 +1,27 @@
 import "./index.css";
 import { Swiper, SwiperSlide, useSwiper } from "swiper/react";
 import "swiper/css";
-import data from "../../utils/slider.json";
 import { sliderSettings } from "../../utils/common";
 import PropertyCard from "../PropertyCard";
+import useProperties from "../../hooks/useProperties.js";
+import LoaderView from "../../components/LoaderView/index.js";
 
 const ResidenciesCarousal = () => {
+  const { data, isError, isLoading } = useProperties();
+
+  if (isError) {
+    return (
+      <div className="wrapper">
+        <span>Error while fetching data</span>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return <LoaderView />;
+  }
+
+  
   return (
     <section className="r-wrapper">
       <div className="paddings innerWidth residencies-carousal">
@@ -15,7 +31,7 @@ const ResidenciesCarousal = () => {
         </div>
         <Swiper {...sliderSettings}>
           <SilderButtons />
-          {data.map((item, index) => (
+          {data.slice(0,8).map((item, index) => (
             <SwiperSlide key={index}>
               <PropertyCard item={item} />
             </SwiperSlide>

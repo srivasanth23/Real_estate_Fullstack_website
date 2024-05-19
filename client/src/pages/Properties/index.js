@@ -4,16 +4,13 @@ import "./index.css";
 import useProperties from "../../hooks/useProperties.js";
 import LoaderView from "../../components/LoaderView/index.js";
 import PropertyCard from "../../components/PropertyCard/index.js";
+import ErrorComponent from "../../components/ErrorComponent/index.js";
 
 const Properties = () => {
   const { data, isError, isLoading } = useProperties();
 
   if (isError) {
-    return (
-      <div className="wrapper">
-        <span>Error while fetching data</span>
-      </div>
-    );
+    return <ErrorComponent />;
   }
 
   if (isLoading) {
