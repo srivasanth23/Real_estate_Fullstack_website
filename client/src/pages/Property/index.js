@@ -30,12 +30,12 @@ const Property = () => {
     <div className="wrapper">
       <div className="property-container innerWidth paddings flexColStart">
         <div className="like">
-          <AiFillHeart size={35} color="white" />
+          <AiFillHeart size={30} color="white" />
         </div>
         <img src={data?.image} alt="home-img" />
 
         <div className="flexCenter property-details">
-          <div className="flexColStart left">
+          <div className="flexColStart left" style={{ flexDirection: "column", width: "100%" }}>
             <div className="flexStart head">
               <span className="primaryText">{data?.title}</span>
               <span className="orangeText" style={{ fontSize: "1.5rem" }}>
@@ -68,7 +68,7 @@ const Property = () => {
             <button className="button">Book Your Visit</button>
           </div>
 
-          <div className="right">
+          <div className="right-property-map">
             <Maps
               address={data?.address}
               city={data?.city}
