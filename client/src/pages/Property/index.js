@@ -8,7 +8,7 @@ import { AiFillHeart, AiTwotoneCar } from "react-icons/ai";
 import { FaShower } from "react-icons/fa";
 import { MdMeetingRoom } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
-import Map from "../../components/Map";
+import Maps from "../../components/Maps";
 import "./index.css";
 
 const Property = () => {
@@ -69,7 +69,7 @@ const Property = () => {
           </div>
 
           <div className="right">
-            <Map
+            <Maps
               address={data?.address}
               city={data?.city}
               country={data?.country}
