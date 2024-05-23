@@ -9,13 +9,10 @@ import { createUser } from "../../utils/api";
 
 const Layouts = () => {
   const { isAuthenticated, user } = useAuth0();
-  const { setUserDetails } = useContext(UserDetailContext);
 
   const { mutate } = useMutation({
     mutationKey: [user?.email],
-    mutationFn: () => {
-      createUser(user?.email);
-    },
+    mutationFn: () => createUser(user?.email),
   });
 
   useEffect(() => {

@@ -141,5 +141,4 @@ export const getAllFavResidencies = asyncHandler(async (req, res) => {
   } catch (e) {
     res.status(401).send(e);
   }
-  
 });
