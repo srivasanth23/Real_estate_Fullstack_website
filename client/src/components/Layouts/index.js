@@ -3,21 +3,32 @@ import Footer from "../Footer";
 import { Outlet } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserDetailContext from "../../context/UserDetailContext";
-import { useContext, useEffect } from "react";
+import {  useEffect } from "react";
 import { useMutation } from "react-query";
 import { createUser } from "../../utils/api";
 
 const Layouts = () => {
-  const { isAuthenticated, user } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenWithPopup} = useAuth0();
 
   const { mutate } = useMutation({
     mutationKey: [user?.email],
-    mutationFn: () => createUser(user?.email),
+    mutationFn: (token) => createUser(user?.email, token),
   });
 
   useEffect(() => {
-    isAuthenticated && mutate();
-  }, [isAuthenticated, mutate]);
+    const getToken = async() => {
+      
+      const token = await getAccessTokenWithPopup(
+        {
+          audience: "http://localhost:8000",
+        }
+      );
+      console.log(token);
+      mutate(token);
+    }
+    isAuthenticated && getToken();
+  }, [isAuthenticated, mutate, getAccessTokenWithPopup]);
+  
 
   return (
     <>
