@@ -3,32 +3,33 @@ import Footer from "../Footer";
 import { Outlet } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserDetailContext from "../../context/UserDetailContext";
-import {  useEffect } from "react";
-import { useMutation } from "react-query";
+import { useEffect, useContext } from "react";
 import { createUser } from "../../utils/api";
 
 const Layouts = () => {
-  const { user, isAuthenticated, getAccessTokenWithPopup} = useAuth0();
+  const { user, isAuthenticated, getAccessTokenWithPopup } = useAuth0();
+  const { setUserDetails } = useContext(UserDetailContext);
 
-  const { mutate } = useMutation({
-    mutationKey: [user?.email],
-    mutationFn: (token) => createUser(user?.email, token),
-  });
+  const CreateUser = (token) => {
+    if (isAuthenticated) {
+      createUser(user?.email, token);
+    }
+  };
 
   useEffect(() => {
-    const getToken = async() => {
-      
-      const token = await getAccessTokenWithPopup(
-        {
-          audience: "http://localhost:8000",
-        }
-      );
+    const getToken = async () => {
+      const token = await getAccessTokenWithPopup({
+        audience: "http://localhost:8000",
+      });
       console.log(token);
-      mutate(token);
-    }
+      localStorage.setItem("access_token", token);
+      setUserDetails((prev) => ({ ...prev, token: token }));
+      CreateUser(token);
+    };
+    
     isAuthenticated && getToken();
-  }, [isAuthenticated, mutate, getAccessTokenWithPopup]);
-  
+  }, [isAuthenticated, getAccessTokenWithPopup, setUserDetails, user?.email]);
+
 
   return (
     <>

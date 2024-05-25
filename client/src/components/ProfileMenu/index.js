@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Menu, MenuItem, Avatar } from "@mui/material";
+import { Menu, MenuItem, Avatar } from "@mui/material";
 
 const ProfileMenu = ({ user, logout }) => {
   const navigate = useNavigate();

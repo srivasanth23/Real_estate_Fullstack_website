@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useLocation } from "react-router-dom";
 import { getProperty } from "../../utils/api";
@@ -9,14 +9,23 @@ import { FaShower } from "react-icons/fa";
 import { MdMeetingRoom } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
 import Maps from "../../components/Maps";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./index.css";
+import BookingModel from "../../components/BookingModel";
+import useAuthCheck from "../../hooks/useAuthCheck";
 
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
+  const { user } = useAuth0();
+  
+
   const { data, isLoading, isError } = useQuery(["resd", id], () =>
     getProperty(id)
   );
+
+  const [modelOpened, setmodelOpened] = useState(false);
+  const { validateLogin } = useAuthCheck();
 
   if (isError) {
     return <ErrorComponent />;
@@ -35,7 +44,10 @@ const Property = () => {
         <img src={data?.image} alt="home-img" />
 
         <div className="flexCenter property-details">
-          <div className="flexColStart left" style={{ flexDirection: "column", width: "100%" }}>
+          <div
+            className="flexColStart left"
+            style={{ flexDirection: "column", width: "100%" }}
+          >
             <div className="flexStart head">
               <span className="primaryText">{data?.title}</span>
               <span className="orangeText" style={{ fontSize: "1.5rem" }}>
@@ -65,8 +77,21 @@ const Property = () => {
                 {data?.address}, {data?.city}, {data?.country}
               </span>
             </div>
-            <button className="button">Book Your Visit</button>
+
+            <button
+              className="button"
+              onClick={() => validateLogin() && setmodelOpened(true)}
+            >
+              Book Your Visit
+            </button>
           </div>
+
+          <BookingModel
+            opened={modelOpened}
+            setOpened={setmodelOpened}
+            propertyId={id}
+            email={user?.email}
+          />
 
           <div className="right-property-map">
             <Maps
