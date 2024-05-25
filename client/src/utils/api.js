@@ -68,3 +68,13 @@ export const bookVisit = async (date, email, propertyId) => {
   }
 };
 
+export const removeBooking = async (id, email) => {
+  try {
+    await api.post(`/user/cancelbooking/${id}`, {
+      email,
+    });
+  } catch (error) {
+    toast.error("Something went wrong, Please try again");
+    throw error;
+  }
+};

@@ -54,6 +54,15 @@
     transform: scale(1.05);
 }
 
+.button-red{
+    background-color: rgba(196, 10, 10, 0.81);
+    color: white;
+    padding: 8px;
+    width: 100%;
+    border: none;
+    border-radius: 3px;
+}
+
 @media screen and (max-width: 768px) {
     .property-container>img{
         width: 100%;

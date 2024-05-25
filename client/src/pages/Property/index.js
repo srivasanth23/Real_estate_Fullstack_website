@@ -13,12 +13,35 @@ import { useAuth0 } from "@auth0/auth0-react";
 import "./index.css";
 import BookingModel from "../../components/BookingModel";
 import useAuthCheck from "../../hooks/useAuthCheck";
+import UserDetailContext from "../../context/UserDetailContext";
+import { useContext } from "react";
+import { toast } from "react-toastify";
+import { removeBooking } from "../../utils/api";
 
 const Property = () => {
   const { pathname } = useLocation();
   const id = pathname.split("/").slice(-1)[0];
   const { user } = useAuth0();
-  
+
+  const {
+    setUserDetails,
+    userDetails: { bookings },
+  } = useContext(UserDetailContext);
+
+  const bookingCancellationSuccess = () => {
+    setUserDetails((prev) => ({
+      ...prev,
+      bookings: prev.bookings.filter((booking) => booking.id !== id),
+    }));
+    toast.success("You have canclled your visit successfully", {
+      position: "bottom-right",
+    });
+  };
+
+  const cancelBooking = () => {
+    removeBooking(id, user?.email);
+    bookingCancellationSuccess();
+  };
 
   const { data, isLoading, isError } = useQuery(["resd", id], () =>
     getProperty(id)
@@ -78,12 +101,24 @@ const Property = () => {
               </span>
             </div>
 
-            <button
-              className="button"
-              onClick={() => validateLogin() && setmodelOpened(true)}
-            >
-              Book Your Visit
-            </button>
+            {bookings.map((booking) => booking.id).includes(id) ? (
+              <>
+                <button className="button-red" onClick={() => cancelBooking()}>
+                  <span>Canecl Booking </span>
+                </button>
+                <span>
+                  Your visit already booked for date{" "}
+                  {bookings?.filter((booking) => booking?.id === id)[0].date}
+                </span>
+              </>
+            ) : (
+              <button
+                className="button"
+                onClick={() => validateLogin() && setmodelOpened(true)}
+              >
+                Book Your Visit
+              </button>
+            )}
           </div>
 
           <BookingModel

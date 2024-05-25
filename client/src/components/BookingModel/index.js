@@ -6,17 +6,29 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { bookVisit } from "../../utils/api";
 import { toast } from "react-toastify";
-import {useMutation} from "react-query";
+import { useMutation } from "react-query";
+import UserDetailContext from "../../context/UserDetailContext";
+import { useContext } from "react";
+import dayjs from "dayjs";
 
 const BookingModel = ({ opened, setOpened, propertyId, email }) => {
   const [selected, setSelected] = useState(null);
-
-  
+  const { setUserDetails } = useContext(UserDetailContext);
 
   const handleBookingSuccess = () => {
     toast.success("You have booked your visit", {
       position: "bottom-right",
     });
+    setUserDetails((prev) => ({
+      ...prev,
+      bookings: [
+        ...prev.bookings,
+        {
+          id: propertyId,
+          date: dayjs(selected).format("DD/MM/YYYY"),
+        },
+      ],
+    }));
   };
 
   const callBookVisit = async () => {
@@ -24,7 +36,7 @@ const BookingModel = ({ opened, setOpened, propertyId, email }) => {
     handleBookingSuccess();
   };
 
-  const { mutate, isLoading } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: () => callBookVisit(),
     onError: ({ response }) => toast.error(response.data.message),
     onSettled: () => setOpened(false),
@@ -60,7 +72,7 @@ const BookingModel = ({ opened, setOpened, propertyId, email }) => {
           variant="contained"
           style={{ marginTop: "20px" }}
           onClick={() => mutate() && setOpened(false)}
-          disabled={!selected }
+          disabled={!selected}
           className="booking-button"
         >
           Confirm Visit
