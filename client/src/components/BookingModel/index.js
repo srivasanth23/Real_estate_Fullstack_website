@@ -6,29 +6,29 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { bookVisit } from "../../utils/api";
 import { toast } from "react-toastify";
+import {useMutation} from "react-query";
 
 const BookingModel = ({ opened, setOpened, propertyId, email }) => {
   const [selected, setSelected] = useState(null);
 
   
+
   const handleBookingSuccess = () => {
     toast.success("You have booked your visit", {
-      position: "bottom-right"
-    })
-  }
-  const onError = () => {
-
-  }
-  
-  const callBookVisit = async () => {
-    const booked = await bookVisit(selected, email, propertyId);
-    if(booked){
-      handleBookingSuccess()
-    }
+      position: "bottom-right",
+    });
   };
 
+  const callBookVisit = async () => {
+    await bookVisit(selected, email, propertyId);
+    handleBookingSuccess();
+  };
 
-
+  const { mutate, isLoading } = useMutation({
+    mutationFn: () => callBookVisit(),
+    onError: ({ response }) => toast.error(response.data.message),
+    onSettled: () => setOpened(false),
+  });
 
   return (
     <Modal
@@ -59,8 +59,8 @@ const BookingModel = ({ opened, setOpened, propertyId, email }) => {
         <Button
           variant="contained"
           style={{ marginTop: "20px" }}
-          onClick={() => callBookVisit() && setOpened(false)}
-          disabled={!selected}
+          onClick={() => mutate() && setOpened(false)}
+          disabled={!selected }
           className="booking-button"
         >
           Confirm Visit
