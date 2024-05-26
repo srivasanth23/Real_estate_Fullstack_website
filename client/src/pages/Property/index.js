@@ -4,7 +4,7 @@ import { useLocation } from "react-router-dom";
 import { getProperty } from "../../utils/api";
 import LoaderView from "../../components/LoaderView";
 import ErrorComponent from "../../components/ErrorComponent";
-import { AiFillHeart, AiTwotoneCar } from "react-icons/ai";
+import { AiTwotoneCar } from "react-icons/ai";
 import { FaShower } from "react-icons/fa";
 import { MdMeetingRoom } from "react-icons/md";
 import { FaLocationDot } from "react-icons/fa6";
@@ -17,6 +17,7 @@ import UserDetailContext from "../../context/UserDetailContext";
 import { useContext } from "react";
 import { toast } from "react-toastify";
 import { removeBooking } from "../../utils/api";
+import HeartComponent from "../../components/HeartComponent";
 
 const Property = () => {
   const { pathname } = useLocation();
@@ -62,7 +63,7 @@ const Property = () => {
     <div className="wrapper">
       <div className="property-container innerWidth paddings flexColStart">
         <div className="like">
-          <AiFillHeart size={30} color="white" />
+          <HeartComponent id={id} />
         </div>
         <img src={data?.image} alt="home-img" />
 

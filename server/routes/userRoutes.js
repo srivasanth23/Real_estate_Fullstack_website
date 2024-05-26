@@ -7,7 +7,7 @@ import {
   addFavResidencies,
   getAllFavResidencies,
 } from "../controllers/userControllers.js";
-import jwtCheck from "../config/auth0Config.js";
+import checkJwt from "../config/auth0Config.js";
 
 const router = express.Router();
 

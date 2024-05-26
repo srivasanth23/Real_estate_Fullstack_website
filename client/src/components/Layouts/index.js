@@ -4,11 +4,12 @@ import { Outlet } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserDetailContext from "../../context/UserDetailContext";
 import { useEffect, useContext } from "react";
-import { createUser } from "../../utils/api";
+import { createUser} from "../../utils/api";
 
 const Layouts = () => {
-  const { user, isAuthenticated, getAccessTokenWithPopup } = useAuth0();
+  const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { setUserDetails } = useContext(UserDetailContext);
+
 
   const CreateUser = (token) => {
     if (isAuthenticated) {
@@ -18,7 +19,7 @@ const Layouts = () => {
 
   useEffect(() => {
     const getToken = async () => {
-      const token = await getAccessTokenWithPopup({
+      const token = await getAccessTokenSilently({
         audience: "http://localhost:8000",
       });
       console.log(token);
@@ -26,10 +27,9 @@ const Layouts = () => {
       setUserDetails((prev) => ({ ...prev, token: token }));
       CreateUser(token);
     };
-    
-    isAuthenticated && getToken();
-  }, [isAuthenticated, getAccessTokenWithPopup, setUserDetails, user?.email]);
 
+    isAuthenticated && getToken();
+  }, [isAuthenticated, getAccessTokenSilently, setUserDetails, user?.email]);
 
   return (
     <>
