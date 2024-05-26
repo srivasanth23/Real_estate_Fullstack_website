@@ -4,12 +4,11 @@ import { Outlet } from "react-router";
 import { useAuth0 } from "@auth0/auth0-react";
 import UserDetailContext from "../../context/UserDetailContext";
 import { useEffect, useContext } from "react";
-import { createUser} from "../../utils/api";
+import { createUser } from "../../utils/api";
 
 const Layouts = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { setUserDetails } = useContext(UserDetailContext);
-
 
   const CreateUser = (token) => {
     if (isAuthenticated) {

@@ -49,9 +49,6 @@ export const createUser = async (email, token) => {
         },
       }
     );
-    console.log("Headers:", {
-      Authorization: `Bearer ${token}`,
-    });
   } catch (error) {
     toast.error("Something went wrong, Please try again");
     throw error;
@@ -103,21 +100,12 @@ export const getAllFavourites = async (email) => {
   }
 };
 
-export const getAllBookings = async (email, token) => {
-  if (!token) return;
+export const getAllBookings = async (email) => {
   try {
-    const res = await api.post(
-      `/user/allBookings`,
-      {
-        email,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    return res.data["bookedVisits"];
+    const res = await api.post(`/user/allbookings`, {
+      email,
+    });
+    console.log(res.data["bookedVisits"]);
   } catch (error) {
     toast.error("Something went wrong while fetching bookings");
     throw error;
