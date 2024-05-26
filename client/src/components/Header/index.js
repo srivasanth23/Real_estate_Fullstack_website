@@ -4,10 +4,20 @@ import { IoMenu, IoClose } from "react-icons/io5";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import ProfileMenu from "../ProfileMenu";
+import AddPropertyModel from "../AddPropertyModel";
+import useAuthCheck from "../../hooks/useAuthCheck";
 
 const Header = () => {
   const [menuOpened, setMenuOpened] = useState(false);
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
+  const [modelOpened, setmodelOpened] = useState(false);
+  const { validateLogin } = useAuthCheck();
+
+  const handleAddpropertyClick = () => {
+    if (validateLogin()) {
+      setmodelOpened(true);
+    }
+  };
 
   return (
     <section className="h-wrapper">
@@ -34,6 +44,8 @@ const Header = () => {
           </label>
           <NavLink to="/properties"> Properties </NavLink>
           <a href="mailto:jammulasrivasanth@gmail.com">Contact</a>
+          <div onClick={() => handleAddpropertyClick()}>Add Property</div>
+          <AddPropertyModel opened={modelOpened} setOpened={setmodelOpened} />
           {!isAuthenticated ? (
             <button className="button" onClick={loginWithRedirect}>
               Login

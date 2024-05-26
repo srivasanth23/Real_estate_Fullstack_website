@@ -134,6 +134,8 @@ const Property = () => {
               address={data?.address}
               city={data?.city}
               country={data?.country}
+              height="300px"
+              width="100%"
             />
           </div>
         </div>

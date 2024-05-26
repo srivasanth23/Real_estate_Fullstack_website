@@ -22,7 +22,7 @@ const SetViewOnChange = ({ position }) => {
   return null;
 };
 
-const MapComponent = ({ address, city, country }) => {
+const MapComponent = ({ address, city, country, height, width }) => {
   const location = `${address} ${city} ${country}`;
   const [position, setPosition] = useState([51.505, -0.09]); // Default position (London)
   const [markerPosition, setMarkerPosition] = useState([51.505, -0.09]); // Default marker position
@@ -52,10 +52,10 @@ const MapComponent = ({ address, city, country }) => {
             setMarkerPosition(newPosition); // Update marker position
             console.log(`Latitude: ${lat}, Longitude: ${lon}`); // Print to console
           } else {
-            alert("Location not found");
+            return
           }
         } catch (error) {
-          alert("Error fetching location");
+          return error;
         }
       };
       console.log(location);
@@ -67,7 +67,12 @@ const MapComponent = ({ address, city, country }) => {
     <MapContainer
       center={position}
       zoom={13}
-      style={{ height: "350px", width: "100%", marginBottom: "2rem", zIndex: 0 }}
+      style={{
+        height: `${height}`,
+        width: `${width}`,
+        marginBottom: "2rem",
+        zIndex: 0,
+      }}
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
