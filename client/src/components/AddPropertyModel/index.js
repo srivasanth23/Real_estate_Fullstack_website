@@ -9,6 +9,8 @@ import Paper from "@mui/material/Paper";
 import AddLocation from "../AddLocation";
 import { useAuth0 } from "@auth0/auth0-react";
 import UploadImages from "../UploadImages";
+import BasicDetails from "../BasicDetails";
+import Facilities from "../Facilities";
 
 const steps = [
   {
@@ -114,8 +116,22 @@ const AddPropertyModel = ({ opened, setOpened }) => {
                         setPropertyDetails={setPropertyDetails}
                       />
                     )}
-                    {index === 2 && <div>Third Step</div>}
-                    {index === 3 && <div>Fourth Step</div>}
+                    {index === 2 && (
+                      <BasicDetails
+                        handleNext={handleNext}
+                        handleBack={handleBack}
+                        propertyDetails={propertyDetails}
+                        setPropertyDetails={setPropertyDetails}
+                      />
+                    )}
+                    {index === 3 && (
+                      <Facilities
+                        handleNext={handleNext}
+                        handleBack={handleBack}
+                        propertyDetails={propertyDetails}
+                        setPropertyDetails={setPropertyDetails}
+                      />
+                    )}
                     <Button
                       variant="contained"
                       onClick={handleNext}
@@ -174,7 +190,7 @@ const modalStyle = {
   borderRadius: "10px",
   boxShadow: 24,
   p: 4,
-  width: "80vw",
+  width: "90vw",
   maxWidth: "800px",
   overflowY: "auto",
   maxHeight: "80vh",

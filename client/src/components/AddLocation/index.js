@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import Maps from "../../components/Maps";
 
@@ -15,7 +15,6 @@ const AddLocation = ({
 
   const handleSubmit = () => {
     if (country.length < 3 || city.length < 3 || address.length < 3) {
-      <p style={{ color: "red" }}> All fields are required </p>;
       setHelperText("All fields have atleast 3 characters.");
     } else {
       setPropertyDetails((prev) => ({ ...prev, city, address, country }));
@@ -23,23 +22,29 @@ const AddLocation = ({
     }
   };
 
+  useEffect(() => {
+    if (country.length === 3 && city.length === 3 && address.length === 3) {
+      setHelperText("");
+    }
+  }, [country, city, address]);
+
   return (
-    <div>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          gap: "2rem",
-          justifyContent: "space-between",
-        }}
-      >
+    <div
+      className="flexCenter"
+      style={{
+        flexDirection: "column",
+        marginTop: "2rem",
+        gap: "2rem",
+      }}
+    >
+      <div>
         <div
           style={{
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
-            justifyContent: "flex-start",
-            alignItems: "flex-start",
+            justifyContent: "center",
+            marginBottom: "1rem",
           }}
         >
           <TextField
@@ -74,6 +79,7 @@ const AddLocation = ({
           height="300px"
           width="500px"
         />
+        <p style={{ color: "red" }}>{helperText}</p>
       </div>
       <div style={{ marginBottom: "1rem" }}>
         <Button
@@ -87,7 +93,6 @@ const AddLocation = ({
           Back
         </Button>
       </div>
-      <p style={{ color: "red" }}>{helperText}</p>
     </div>
   );
 };
