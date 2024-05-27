@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
-import FormControl from "@mui/material/FormControl";
-import FilledInput from "@mui/material/FilledInput";
-import InputLabel from "@mui/material/InputLabel";
-import InputAdornment from "@mui/material/InputAdornment";
-
+import { useAuth0 } from "@auth0/auth0-react";
+import { parseInt } from "lodash";
 
 const BasicDetails = ({
   handleNext,
@@ -18,14 +15,24 @@ const BasicDetails = ({
   );
   const [price, ChangePrice] = useState(propertyDetails.price);
   const [helperText, setHelperText] = useState("");
+  const [emailState, setEmailState] = useState(propertyDetails.userEmail);
+  const { user } = useAuth0();
 
   const handleSubmit = () => {
-    if (title.length < 3 || price < 999) {
+    if (title.length < 3 && price < 999) {
       setHelperText(
         "Tile must be atleast 3 characters & price must be more than 999"
       );
+    } else if (emailState !== user?.email) {
+      setHelperText("login email & entered email must be same");
     } else {
-      setPropertyDetails((prev) => ({ ...prev, title, description, price }));
+      setPropertyDetails((prev) => ({
+        ...prev,
+        title,
+        description,
+        userEmail: emailState,
+        price: parseInt(price),
+      }));
       handleNext();
     }
   };
@@ -71,17 +78,35 @@ const BasicDetails = ({
           onChange={(e) => ChangeDescription(e.target.value)}
         />
 
-        <FormControl size="small" variant="filled">
-          <InputLabel htmlFor="filled-adornment-amount">Amount</InputLabel>
-          <FilledInput
-            value={price}
-            onChange={(e) => ChangePrice(e.target.value)}
-            id="filled-adornment-amount"
-            startAdornment={<InputAdornment position="start">$</InputAdornment>}
-          />
-        </FormControl>
+        <span className="secondaryText" htmlFor="filled-adornment-amount">
+          Amount
+        </span>
+        <input
+          value={price}
+          type="number"
+          onChange={(e) => ChangePrice(e.target.value)}
+          id="filled-adornment-amount"
+          placeholder="$"
+          style={{
+            width: "100%",
+            height: "1.5rem",
+            padding: "0.5rem",
+            borderRadius: "2px",
+            outline: "none",
+            border: "1px solid #000000",
+          }}
+        />
+        <TextField
+          id="filled-search"
+          label="Email *"
+          variant="filled"
+          size="small"
+          value={emailState}
+          onChange={(e) => setEmailState(e.target.value)}
+        />
         <p style={{ color: "red" }}>{helperText}</p>
       </div>
+
       <div style={{ marginBottom: "1rem" }}>
         <Button
           variant="contained"

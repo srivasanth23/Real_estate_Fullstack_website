@@ -7,10 +7,11 @@ import StepLabel from "@mui/material/StepLabel";
 import StepContent from "@mui/material/StepContent";
 import Paper from "@mui/material/Paper";
 import AddLocation from "../AddLocation";
-import { useAuth0 } from "@auth0/auth0-react";
 import UploadImages from "../UploadImages";
 import BasicDetails from "../BasicDetails";
 import Facilities from "../Facilities";
+import { createResidency } from "../../utils/api";
+
 
 const steps = [
   {
@@ -29,7 +30,7 @@ const steps = [
 
 const AddPropertyModel = ({ opened, setOpened }) => {
   const [activeStep, setActiveStep] = React.useState(0);
-  const { user } = useAuth0();
+
   const [propertyDetails, setPropertyDetails] = React.useState({
     title: "",
     description: "",
@@ -43,7 +44,7 @@ const AddPropertyModel = ({ opened, setOpened }) => {
       parkings: 0,
       bathrooms: 0,
     },
-    userEmail: user?.email,
+    userEmail: "",
   });
   console.log(propertyDetails);
 
@@ -57,9 +58,29 @@ const AddPropertyModel = ({ opened, setOpened }) => {
 
   const handleReset = () => {
     setActiveStep(0);
+    setPropertyDetails({
+      title: "",
+      description: "",
+      price: 0,
+      country: "",
+      city: "",
+      address: "",
+      image: null,
+      facilities: {
+        bedrooms: 0,
+        parkings: 0,
+        bathrooms: 0,
+      },
+      userEmail: "",
+    });
   };
 
-  const handleAddProperty = () => {};
+  const handleAddProperty = () => {
+    console.log(propertyDetails);
+    createResidency(propertyDetails);
+    setOpened(false);
+    handleReset();
+  };
 
   return (
     <Modal
@@ -97,7 +118,6 @@ const AddPropertyModel = ({ opened, setOpened }) => {
               </StepLabel>
 
               <StepContent>
-                <Typography>{step.description}</Typography>
                 <Box sx={{ mb: 2 }}>
                   <div>
                     {index === 0 && (

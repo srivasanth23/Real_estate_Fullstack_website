@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Button } from "@mui/material";
 import Maps from "../../components/Maps";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const AddLocation = ({
   handleNext,
@@ -12,6 +13,12 @@ const AddLocation = ({
   const [city, ChangeCity] = useState(propertyDetails.city);
   const [address, ChangeAddress] = useState(propertyDetails.address);
   const [helperText, setHelperText] = useState("");
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const mapsize = {
+    width: isSmallScreen ? "90%" : "60%",
+    padding: isSmallScreen ? "10px" : "20px",
+  };
 
   const handleSubmit = () => {
     if (country.length < 3 || city.length < 3 || address.length < 3) {
@@ -30,11 +37,11 @@ const AddLocation = ({
 
   return (
     <div
-      className="flexCenter"
       style={{
         flexDirection: "column",
         marginTop: "2rem",
         gap: "2rem",
+        width: "100%",
       }}
     >
       <div>
@@ -77,7 +84,7 @@ const AddLocation = ({
           city={city ? city : ""}
           country={country ? country : ""}
           height="300px"
-          width="500px"
+          width={mapsize.width}
         />
         <p style={{ color: "red" }}>{helperText}</p>
       </div>

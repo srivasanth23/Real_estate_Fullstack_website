@@ -50,7 +50,7 @@ const UploadImages = ({
           onClick={() => widgetRef.current?.open()}
         >
           <SlCloudUpload size={50} color="grey" />
-          <span> Upload Image</span>
+          <span> Image must not be null</span>
         </button>
       ) : (
         <>

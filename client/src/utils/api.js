@@ -111,3 +111,16 @@ export const getAllBookings = async (email) => {
     throw error;
   }
 };
+
+export const createResidency = async (data) => {
+  console.log(data);
+  try {
+    const res = await api.post(`/residency/create`, {
+      data,
+    });
+    console.log(res.data);
+    toast.success("Property Added Successfully");
+  } catch (error) {
+    toast.error("Something went wrong, Please try again");
+  }
+};
