@@ -12,7 +12,6 @@ import BasicDetails from "../BasicDetails";
 import Facilities from "../Facilities";
 import { createResidency } from "../../utils/api";
 
-
 const steps = [
   {
     label: "Location",
@@ -152,20 +151,6 @@ const AddPropertyModel = ({ opened, setOpened }) => {
                         setPropertyDetails={setPropertyDetails}
                       />
                     )}
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      {index === steps.length - 1 ? "Finish" : "Continue"}
-                    </Button>
-                    <Button
-                      disabled={index === 0}
-                      onClick={handleBack}
-                      sx={{ mt: 1, mr: 1 }}
-                    >
-                      Back
-                    </Button>
                   </div>
                 </Box>
               </StepContent>

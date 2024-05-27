@@ -22,6 +22,7 @@ const Properties = () => {
   return (
     <div className="wrapper">
       <div className="flexColCenter paddings innerWidth pc-container">
+        <span>*Booking, Favourites data may not be persist, it may take time fix</span>
         <SearchBar filter={filter} setFilter={setFilter} />
         <div className="paddings flexCenter properties">
           {data

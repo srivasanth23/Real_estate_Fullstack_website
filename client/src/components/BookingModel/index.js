@@ -10,10 +10,13 @@ import { useMutation } from "react-query";
 import UserDetailContext from "../../context/UserDetailContext";
 import { useContext } from "react";
 import dayjs from "dayjs";
+import { useMediaQuery, useTheme } from "@mui/material";
 
 const BookingModel = ({ opened, setOpened, propertyId, email }) => {
   const [selected, setSelected] = useState(null);
   const { setUserDetails } = useContext(UserDetailContext);
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const handleBookingSuccess = () => {
     toast.success("You have booked your visit", {
@@ -49,7 +52,7 @@ const BookingModel = ({ opened, setOpened, propertyId, email }) => {
       aria-labelledby="modal-title"
       aria-describedby="modal-description"
     >
-      <Box sx={modalStyle}>
+      <Box sx={modalStyle} style={{ width: isSmallScreen ? "90vw" : "40vw" }}>
         <div className="modalHeader">
           <Typography id="modal-title" variant="h6" component="h2">
             Select your date of visit
@@ -87,7 +90,6 @@ const modalStyle = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 500,
   bgcolor: "background.paper",
   border: "2px solid #000",
   boxShadow: 24,

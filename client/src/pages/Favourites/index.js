@@ -29,9 +29,7 @@ const Favourites = () => {
         <SearchBar filter={filter} setFilter={setFilter} />
         <div className="paddings flexCenter properties">
           {data
-            .filter((property) =>
-              favourites.map((fav) => fav.id).includes(property.id)
-            )
+            .filter((property) => favourites.includes(property.id))
             .filter(
               (item) =>
                 item.title.toLowerCase().includes(filter.toLowerCase()) ||
@@ -42,9 +40,6 @@ const Favourites = () => {
               <PropertyCard item={item} key={i} />
             ))}
         </div>
-        <span >
-          Fixing this Components, may take time
-        </span>
       </div>
     </div>
   );

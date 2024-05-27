@@ -61,6 +61,10 @@
 }
   
 @media (max-width: 768px) {
+    .v-container{
+        padding: 10px;
+    }
+
     .accordionButton .primaryText{
           font-size: 0.7rem;
     }
