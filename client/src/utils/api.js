@@ -112,6 +112,7 @@ export const getAllBookings = async (email) => {
   }
 };
 
+
 export const createResidency = async (data) => {
   console.log(data);
   try {

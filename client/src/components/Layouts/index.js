@@ -16,6 +16,7 @@ const Layouts = () => {
     }
   };
 
+
   useEffect(() => {
     const getToken = async () => {
       const token = await getAccessTokenSilently({

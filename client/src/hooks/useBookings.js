@@ -5,15 +5,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 import { getAllBookings } from "../utils/api";
 
 const useBookings = () => {
-  const { userDetails, setUserDetails } = useContext(UserDetailContext);
+  const { setUserDetails } = useContext(UserDetailContext);
   const queryRef = useRef();
   const { user } = useAuth0();
 
-  
-
   const { data, isLoading, isError, refetch } = useQuery({
     queryKey: "allBookings",
-    queryFn: () => getAllBookings(user?.email),
+    queryFn: () => getAllBookings("user?.email"),
     onSuccess: (data) =>
       setUserDetails((prev) => ({ ...prev, favourites: data })),
     enabled: user !== undefined,

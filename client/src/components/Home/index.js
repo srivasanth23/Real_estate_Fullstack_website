@@ -3,8 +3,10 @@ import CountUp from "react-countup";
 import "./index.css";
 import { motion } from "framer-motion";
 import SearchBar from "../SearchBar";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
     <section className="home-wrapper">
       <div className="paddings innerWidth flexCenter home-container">
@@ -28,7 +30,7 @@ const Home = () => {
             <span>Forget all difficulties in finding a residence for you</span>
           </div>
 
-          <SearchBar/>
+          <SearchBar />
 
           <div className="flexCenter stats">
             <div className="flexColCenter stat">
@@ -65,7 +67,7 @@ const Home = () => {
             transition={{ duration: 2, type: "spring" }}
             className="image-container"
           >
-              <img src="./hero-image.png" alt="houses" />
+            <img src="./hero-image.png" alt="houses" />
           </motion.div>
         </div>
       </div>

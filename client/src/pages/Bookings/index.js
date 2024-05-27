@@ -1,14 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import SearchBar from "../../components/SearchBar/index.js";
-import "./index.css";
+import "../Properties/index.css";
 import useProperties from "../../hooks/useProperties.js";
 import LoaderView from "../../components/LoaderView/index.js";
 import PropertyCard from "../../components/PropertyCard/index.js";
 import ErrorComponent from "../../components/ErrorComponent/index.js";
+import UserDetailContext from "../../context/UserDetailContext";
 
-const Properties = () => {
+const Bookings = () => {
   const { data, isError, isLoading } = useProperties();
   const [filter, setFilter] = React.useState("");
+  const {
+    userDetails: { bookings },
+  } = useContext(UserDetailContext);
 
   if (isError) {
     return <ErrorComponent />;
@@ -25,6 +29,9 @@ const Properties = () => {
         <SearchBar filter={filter} setFilter={setFilter} />
         <div className="paddings flexCenter properties">
           {data
+            .filter((property) =>
+              bookings.map((booking) => booking.id).includes(property.id)
+            )
             .filter(
               (item) =>
                 item.title.toLowerCase().includes(filter.toLowerCase()) ||
@@ -40,4 +47,4 @@ const Properties = () => {
   );
 };
 
-export default Properties;
+export default Bookings;

@@ -10,6 +10,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Property from "./pages/Property";
 import UserDetailContext from "./context/UserDetailContext";
+import Bookings from "./pages/Bookings";
+import Favourites from "./pages/Favourites";
+import LoaderView from "./components/LoaderView";
 
 function App() {
   const queryClient = new QueryClient();
@@ -19,12 +22,13 @@ function App() {
     bookings: [],
     token: null,
   });
+  console.log(userDetails);
 
   return (
     <UserDetailContext.Provider value={{ userDetails, setUserDetails }}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
-          <Suspense fallback={<div> Loading ... </div>}>
+          <Suspense fallback={<LoaderView />}>
             <Routes>
               <Route element={<Layouts />}>
                 <Route path="/" element={<Website />} />
@@ -32,6 +36,8 @@ function App() {
                   <Route index element={<Properties />} />
                   <Route path=":propertyId" element={<Property />} />
                 </Route>
+                <Route path="/bookings" element={<Bookings />} />
+                <Route path="/favorites" element={<Favourites />} />
               </Route>
             </Routes>
           </Suspense>
