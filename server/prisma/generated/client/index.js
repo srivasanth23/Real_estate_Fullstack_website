@@ -32,11 +32,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 5.14.0
- * Query Engine version: b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b
+ * Query Engine version: e9771e62de70f79a5e1c604a2d7c8e2a0a874b48
  */
 Prisma.prismaVersion = {
   client: "5.14.0",
-  engine: "b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b"
+  engine: "e9771e62de70f79a5e1c604a2d7c8e2a0a874b48"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -148,12 +148,12 @@ const config = {
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../..",
   "clientVersion": "5.14.0",
-  "engineVersion": "b9a39a7ee606c28e3455d0fd60e78c3ba82b1a2b",
+  "engineVersion": "e9771e62de70f79a5e1c604a2d7c8e2a0a874b48",
   "datasourceNames": [
     "db"
   ],
@@ -167,8 +167,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\r\n    provider = \"prisma-client-js\"\r\n    output   = \"./generated/client\"\r\n}\r\n\r\n//Data Source (we need to mention type and about database)\r\ndatasource db {\r\n    provider = \"mongodb\"\r\n    url      = env(\"DATABASE_URL\")\r\n}\r\n\r\n//Schema 1 for User\r\nmodel User {\r\n    id               String      @id @default(auto()) @map(\"_id\") @db.ObjectId //id-> name, String-> datatype, @id-> defining it as id, @default(auto())-> it will be generated automatically, @map(\"_id\")-> we maps it should be like _id, @db.ObjectId -> as we know id in mongodb is an object id we are specifying it\r\n    name             String? //represents an optional string value\r\n    email            String      @unique //must be unique\r\n    image            String?\r\n    bookedVisits     Json[] //Json[]-> datatype\r\n    favResidenciesId String[]    @db.ObjectId\r\n    ownedResidencies Residency[] @relation(\"Owner\") //creates relationship as Owner in Residency //Used Residencies[] because one owner can have many residencies\r\n}\r\n\r\n//Schema 2 for Residency\r\nmodel Residency {\r\n    id          String   @id @default(auto()) @map(\"_id\") @db.ObjectId\r\n    title       String\r\n    description String\r\n    price       Int\r\n    address     String\r\n    city        String\r\n    country     String\r\n    image       String\r\n    facilities  Json\r\n    userEmail   String\r\n    owner       User     @relation(\"Owner\", fields: [userEmail], references: [email]) //creates relationship as Owner in User //fields: [userEmail]-> must be a fielf of current schema email //refrences: [email]-> refering to User email\r\n    createdAt   DateTime @default(now())\r\n    updatedAt   DateTime @updatedAt //the resulting Prisma Client code will automatically generate values for this column when an existing record is updated\r\n\r\n    @@unique(fields: [address, userEmail]) //to make bothe the fields unique at same time\r\n}\r\n",
-  "inlineSchemaHash": "1cf8cc6ddfe7a40eb386fce9782cb5e2c97c89d79a205653614e452cf8c0551f",
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/client\"\n}\n\n//Data Source (we need to mention type and about database)\ndatasource db {\n  provider = \"mongodb\"\n  url      = env(\"DATABASE_URL\")\n}\n\n//Schema 1 for User\nmodel User {\n  id               String      @id @default(auto()) @map(\"_id\") @db.ObjectId //id-> name, String-> datatype, @id-> defining it as id, @default(auto())-> it will be generated automatically, @map(\"_id\")-> we maps it should be like _id, @db.ObjectId -> as we know id in mongodb is an object id we are specifying it\n  name             String? //represents an optional string value\n  email            String      @unique //must be unique\n  image            String?\n  bookedVisits     Json[] //Json[]-> datatype\n  favResidenciesId String[]    @db.ObjectId\n  ownedResidencies Residency[] @relation(\"Owner\") //creates relationship as Owner in Residency //Used Residencies[] because one owner can have many residencies\n}\n\n//Schema 2 for Residency\nmodel Residency {\n  id          String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  title       String\n  description String\n  price       Int\n  address     String\n  city        String\n  country     String\n  image       String\n  facilities  Json\n  userEmail   String\n  owner       User     @relation(\"Owner\", fields: [userEmail], references: [email]) //creates relationship as Owner in User //fields: [userEmail]-> must be a fielf of current schema email //refrences: [email]-> refering to User email\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt //the resulting Prisma Client code will automatically generate values for this column when an existing record is updated\n\n  @@unique(fields: [address, userEmail]) //to make bothe the fields unique at same time\n}\n",
+  "inlineSchemaHash": "3fa8b5bfb4ee15d9028620212eb3c5e0f74cab1814857aefcfea4ac584ac25aa",
   "copyEngine": true
 }
 
