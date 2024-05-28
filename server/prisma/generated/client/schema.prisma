@@ -1,0 +1,40 @@
+generator client {
+    provider = "prisma-client-js"
+    output   = "./generated/client"
+}
+
+//Data Source (we need to mention type and about database)
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+//Schema 1 for User
+model User {
+    id               String      @id @default(auto()) @map("_id") @db.ObjectId //id-> name, String-> datatype, @id-> defining it as id, @default(auto())-> it will be generated automatically, @map("_id")-> we maps it should be like _id, @db.ObjectId -> as we know id in mongodb is an object id we are specifying it
+    name             String? //represents an optional string value
+    email            String      @unique //must be unique
+    image            String?
+    bookedVisits     Json[] //Json[]-> datatype
+    favResidenciesId String[]    @db.ObjectId
+    ownedResidencies Residency[] @relation("Owner") //creates relationship as Owner in Residency //Used Residencies[] because one owner can have many residencies
+}
+
+//Schema 2 for Residency
+model Residency {
+    id          String   @id @default(auto()) @map("_id") @db.ObjectId
+    title       String
+    description String
+    price       Int
+    address     String
+    city        String
+    country     String
+    image       String
+    facilities  Json
+    userEmail   String
+    owner       User     @relation("Owner", fields: [userEmail], references: [email]) //creates relationship as Owner in User //fields: [userEmail]-> must be a fielf of current schema email //refrences: [email]-> refering to User email
+    createdAt   DateTime @default(now())
+    updatedAt   DateTime @updatedAt //the resulting Prisma Client code will automatically generate values for this column when an existing record is updated
+
+    @@unique(fields: [address, userEmail]) //to make bothe the fields unique at same time
+}
