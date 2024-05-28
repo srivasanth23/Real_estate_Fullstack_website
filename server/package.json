@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start": "nodemon index.js",
-    "postinstall": "prisma generate"
+    "postinstall": "chmod +x node_modules/.bin/prisma && prisma generate",
+    "prisma:generate": "prisma generate"
   },
   "author": "Srivasanth Jammula",
   "license": "ISC",
